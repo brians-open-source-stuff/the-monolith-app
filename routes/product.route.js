@@ -1,5 +1,9 @@
-const { showOptions } = require("../controllers/product.controller");
+const {
+  showOptions,
+  getAllProducts
+} = require("../controllers/product.controller");
 
 module.exports = function(router) {
   router.options("/products", showOptions);
+  router.get("/products", getAllProducts);
 };

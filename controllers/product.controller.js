@@ -1,5 +1,5 @@
 exports.showOptions = function(req, res) {
-  res.status(200);
+  res.status(204);
   res.header("Allow", "OPTIONS");
   res.end();
 };

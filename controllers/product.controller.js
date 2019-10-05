@@ -1,4 +1,4 @@
-const { getAllProducts } = require("../models/product.model");
+const { getAllProducts, getProductBySKU } = require("../models/product.model");
 
 exports.showOptions = function(req, res) {
   res.status(204);
@@ -15,6 +15,16 @@ exports.getAllProducts = async function(req, res, next) {
 
     const products = await getAllProducts(page, limit);
     res.json(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getOneProduct = async function(req, res, next) {
+  try {
+    const product = await getProductBySKU(req.params.sku);
+    if (!product) return res.status(404).end();
+    res.json(product);
   } catch (error) {
     next(error);
   }

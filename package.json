@@ -23,6 +23,7 @@
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "express-winston": "^4.0.0",
+    "memory-cache": "^0.2.0",
     "mysql2": "^1.7.0",
     "winston": "^3.2.1"
   },

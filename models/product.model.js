@@ -1,6 +1,6 @@
 const db = require("../config/sql");
 
-exports.getAllProducts = async function(page = 1, limit = 5) {
+exports.getAllProducts = async function(page = 1, limit = 10) {
   try {
     const offset = (page - 1) * limit;
     const productsql = `SELECT id, sku, name FROM products LIMIT :offset, :limit`;
@@ -18,6 +18,17 @@ exports.getAllProducts = async function(page = 1, limit = 5) {
       prevPage: page > 1 ? `/products?page=${page - 1}&limit=${limit}` : null,
       items: products
     };
+  } catch (error) {
+    console.error(error.stack);
+    return null;
+  }
+};
+
+exports.getProductBySKU = async function(sku) {
+  try {
+    const sql = `SELECT id, sku, name FROM products WHERE sku = :sku`;
+    const [product] = await db.query(sql, { sku });
+    return product[0];
   } catch (error) {
     console.error(error.stack);
     return null;

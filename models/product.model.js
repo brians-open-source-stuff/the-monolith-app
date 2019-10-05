@@ -3,7 +3,7 @@ const db = require("../config/sql");
 exports.getAllProducts = async function(page = 1, limit = 10) {
   try {
     const offset = (page - 1) * limit;
-    const productsql = `SELECT id, sku, name FROM products LIMIT :offset, :limit`;
+    const productsql = `SELECT sku, name FROM products LIMIT :offset, :limit`;
     const metasql = `SELECT CEIL(COUNT(id) / :limit) AS totalPages, COUNT(id) AS totalItems FROM products`;
     const [products] = await db.query(productsql, { offset, limit });
     const [meta] = await db.query(metasql, { limit });
@@ -26,7 +26,7 @@ exports.getAllProducts = async function(page = 1, limit = 10) {
 
 exports.getProductBySKU = async function(sku) {
   try {
-    const sql = `SELECT id, sku, name FROM products WHERE sku = :sku`;
+    const sql = `SELECT sku, name FROM products WHERE sku = :sku`;
     const [product] = await db.query(sql, { sku });
     return product[0];
   } catch (error) {
